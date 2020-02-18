@@ -1,7 +1,7 @@
 <template>
  <v-app>
-  <div>
     <v-app-bar
+      app
       color="deep-purple"
       dark
     >
@@ -18,9 +18,10 @@
     <SideNav/>
 
     <v-content>
-      <router-view/>
+        <v-container fluid fill-height align-start>
+          <router-view/>
+      </v-container>
     </v-content>
-    </div>
   </v-app>
 </template>
 
@@ -37,6 +38,7 @@ export default {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setLoginUser(user)
+        this.fetchAddresses()
         if (this.$router.currentRoute.name === 'Home') {
           this.$router.push({ name: 'addresses' }, () => {})
         }
@@ -50,7 +52,7 @@ export default {
     //
   }),
   methods: {
-    ...mapActions(['toggleSideMenu', 'setLoginUser','logout', 'deleteLoginUser'])
+    ...mapActions(['toggleSideMenu', 'setLoginUser','logout', 'deleteLoginUser','fetchAddresses'])
   }
 };
 </script>

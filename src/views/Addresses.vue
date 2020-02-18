@@ -1,113 +1,63 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="desserts"
-    :items-per-page="3"
-    class="elevation-1"
-  ></v-data-table>
+  <v-container text-xs-center justify-center>
+    <v-layout row wrap>
+      <v-flex xs12>
+        <h1>会社一覧</h1>
+      </v-flex>
+
+      <v-flex xs12 mt-5 mr-5 text-right>
+        <router-link :to="{ name: 'address_edit' }">
+          <v-btn color="info">
+            会社情報追加
+          </v-btn>
+        </router-link>
+      </v-flex>
+      <v-flex xs12 mt-3 justify-center>
+        <v-data-table :headers='headers' :items='addresses'>
+          <template v-slot:item.action="{ item }">
+            <router-link :to="{ name: 'address_edit', params: { address_id: item.id }}">
+              <v-icon small class="mr-2">mdi-pencil</v-icon>
+            </router-link>
+            <v-icon small class="mr-2" @click="deleteConfirm(item.id)">mdi-delete</v-icon>
+          </template>
+        </v-data-table>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        headers: [
-          {
-            text: '会社名',
-            align: 'left',
-            sortable: false,
-            value: 'name',
-          },
-          { text: 'Calories', value: 'calories' },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' },
-        ],
-        desserts: [
-          {
-            name: 'A社',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
-          },
-          {
-            name: 'B社',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            iron: '1%',
-          },
-          {
-            name: 'C社',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-            iron: '7%',
-          },
-          {
-            name: 'D社',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            iron: '8%',
-          },
-          {
-            name: 'E社',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-            iron: '16%',
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-            iron: '0%',
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-            iron: '2%',
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-            iron: '45%',
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            iron: '22%',
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            iron: '6%',
-          },
-        ],
+import { mapActions } from 'vuex'
+
+export default {
+  created () {
+    this.addresses = this.$store.state.addresses
+  },
+  data () {
+    return {
+      headers: [
+        { text: '投稿者', value: 'name' },
+        { text: '会社名', value: 'company' },
+        { text: '情報', value: 'info' },
+        { text: '操作', value: 'action', sortable: false }
+      ],
+      addresses: []
+    }
+  },
+  methods: {
+    deleteConfirm (id) {
+      if (confirm('削除してよろしいですか？')) {
+        this.deleteAddress({ id })
       }
     },
+    ...mapActions(['deleteAddress'])
   }
+}
 </script>
+
+<style scoped lang="scss">
+a {
+  text-decoration: none;
+}
+</style>
 

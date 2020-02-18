@@ -1,5 +1,4 @@
 <template>
-  <v-container fluid fill-height>
     <v-navigation-drawer v-model="$store.state.drawer" absolute temporary>
       <v-list>
         <v-list-item>
@@ -12,7 +11,6 @@
         </v-list-item>
 
         <v-divider></v-divider>
-
         <v-list-item v-for="(item, index) in items" :key="index" :to="item.link">
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -23,7 +21,6 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-  </v-container>
 </template>
 
 <script>
@@ -33,7 +30,7 @@ export default {
   data () {
     return {
       items: [
-        { title: '連絡先一覧', icon: 'mdi-menu', link: { name: 'addresses' } }
+        { title: '会社一覧', icon: 'mdi-menu', link: { name: 'addresses' } }
       ]
     }
   },
