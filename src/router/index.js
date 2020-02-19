@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Addresses from '../views/Addresses.vue'
 import AddressForm from '../views/AddressForm.vue'
+import AddressDetail from '../views/AddressDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -23,12 +24,9 @@ const routes = [
     component: AddressForm
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/addresses/:address_id?/detail',
+    name: 'address_detail',
+    component: AddressDetail
   }
 ]
 

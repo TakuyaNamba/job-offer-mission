@@ -8,9 +8,6 @@
       <v-app-bar-nav-icon v-show="$store.state.login_user" @click.stop="toggleSideMenu"></v-app-bar-nav-icon>
       <v-toolbar-title>サイボウズミッション</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
       <v-toolbar-items v-if="$store.state.login_user">
         <v-btn text @click="logout">ログアウト</v-btn>
       </v-toolbar-items>
